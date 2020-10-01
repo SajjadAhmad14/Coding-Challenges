@@ -32,3 +32,4 @@ def repeatedString(s, n)
   end
   occurence_a
 end
+p repeatedString('aba', 10)
