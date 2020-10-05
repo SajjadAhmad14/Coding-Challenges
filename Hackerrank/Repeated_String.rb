@@ -2,7 +2,7 @@
  # total number of occurences of a
  # s = string
  # n = number of charcters of string from which occurences of a is checked   
-def repeatedString(s, n)
+def repeated_string(s, n)
   s_size = s.size
   count_a = 0
   occurence_a = 0
