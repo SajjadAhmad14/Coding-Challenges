@@ -21,4 +21,4 @@ def repeated_string(s, n)
   occurence_a
 end
 
-p repeatedString('aba', 4)
+p repeated_string('aba', 4)
