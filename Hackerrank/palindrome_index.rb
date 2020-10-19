@@ -1,17 +1,17 @@
 def palindromeIndex(s)
-  index = 0
+  n = s.size
+  i = 0
+  j = n-1
   return -1 if s == s.reverse
-
-  c = s.chars
-  c.size.times do |i|
-    c.size.times do |j|
-      if c.count(c[i]) == 1
-        index = i
-        break
-      end
-    end
+  while (s[i] == s[j])
+    i += 1
+    j -= 1
   end
-  index
+  s1 = s[0...i] << s[i+1..n]
+  s2 = s[0...j] << s[j+1..n]
+  return i if s1 == s1.reverse 
+  return j if s2 == s2.reverse
+  -1
 end
 
-p palindromeIndex('aba')
+p palindromeIndex('aaa')
