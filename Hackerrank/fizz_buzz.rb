@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 def fizz_buzz
   100.times do |i|
-    i+=1
-      if i%15==0
-        puts "FizzBuzz"
-      elsif i%5==0
-        puts "Buzz"
-      elsif i%3==0
-        puts "Fizz"
-      else
-        puts i
-      end
+    i += 1
+    if (i % 15).zero?
+      puts 'FizzBuzz'
+    elsif (i % 5).zero?
+      puts 'Buzz'
+    elsif (i % 3).zero?
+      puts 'Fizz'
+    else
+      puts i
     end
+  end
 end
-fizz_buzz()
+fizz_buzz
