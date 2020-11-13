@@ -90,15 +90,20 @@ class LinkedList
 
   # Return a value from the index given
   def at_index(position)
-    node = @head
-    node_index = 0
-    until node_index == position || node.next_node.nil?
-      node = node.next_node
-      node_index += 1
+    if @head.nil?
+      p 'List is empty!'
+    else
+      node = @head
+      node_index = 0
+      until node_index == position || node.next_node.nil?
+        node = node.next_node
+        node_index += 1
+      end
+      node
     end
-    node
   end
-# Add a node after the given position
+
+  # Add a node after the given position
   def add_after(position, value)
     new_node = Node.new(value)
     node = at_index(position)
@@ -114,7 +119,8 @@ class LinkedList
     end
     @size += 1
   end
-# Add a node at the given position
+
+  # Add a node at the given position
   def add_at(position, value)
     new_node = Node.new(value)
     node = at_index(position)
@@ -136,9 +142,34 @@ class LinkedList
     end
     @size += 1
   end
+
+  # Remove a node from the given position
+  def remove(position)
+    node_to_remove = at_index(position)
+    if @head.nil?
+      p 'List is already empty!'
+    elsif @head == @tail
+      @head = nil
+      @tail = nil
+    elsif node_to_remove == @head
+      @head = @head.next_node
+    elsif @head != @tail && @tail == node_to_remove
+      node = @head
+      node = node.next_node until node.next_node.next_node.nil?
+      node.next_node = nil
+      @tail = node
+    else
+      node = @head
+      index = 0
+      while index != position - 1
+        node = node.next_node
+        index += 1
+      end
+      node.next_node = node_to_remove.next_node
+      node_to_remove.next_node = nil
+    end
+    @size -= 1
+  end
 end
 list = LinkedList.new
-list.append(3)
-list.append(5)
-list.add_at(1, 11)
-list.add_at(0, 13)
+list.remove(0)
