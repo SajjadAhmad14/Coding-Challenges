@@ -86,8 +86,8 @@ class LinkedList
     else
       @tail.value
     end
-
   end
+
   # Return a value from the index given
   def at_index(position)
     node = @head
@@ -96,25 +96,27 @@ class LinkedList
       node = node.next_node
       node_index += 1
     end
-    node.value
+    node
   end
 
-  def add_at(position, value)
+  def add_after(position, value)
     new_node = Node.new(value)
-    if position == 0
-      new_node.next_node = @head
+    node = at_index(position)
+    if @head.nil?
       @head = new_node
-      return @head
+      @tail = new_node
+    elsif @tail == node
+      @tail.next_node = new_node
+      @tail = new_node
+    else
+      node.next_node = new_node
+      new_node.next_node = node.next_node
     end
-    node_index = 0
-    until node_index == position || node.next_node.nil?
-      node = node.next_node
-      node_index += 1
-    end
-    node.value = value
+    @size += 1
   end
 end
 list = LinkedList.new
-list.append(1)
-list.append(2)
-p list.return_last_node
+list.append(3)
+list.append(5)
+list.add_after(0, 13)
+list.add_after(1, 11)
