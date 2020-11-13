@@ -40,6 +40,15 @@ class LinkedList
     end
   end
 
+  # Return a node from the front
+  def return_front_node
+    if @head.nil?
+      p "List is empty!"
+    else
+      @head.value
+    end
+  end
+
   def append(number)
     new_node = Node.new(number)
     if @head.nil?
@@ -78,5 +87,6 @@ class LinkedList
   end
 end
 list = LinkedList.new
-list.remove_from_front
+list.append(1)
+list.append(2)
 p list.size
