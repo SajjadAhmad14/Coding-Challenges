@@ -26,8 +26,8 @@ class LinkedList
     else
       node.next_node = @head
       @head = node
-      @size += 1
     end
+    @size += 1
   end
 
   # Remove node from the begining of list
@@ -82,7 +82,7 @@ class LinkedList
   # Return a node value from the end of list
   def return_last_node
     if @head.nil?
-      p "List id empty!" 
+      p 'List id empty!'
     else
       @tail.value
     end
@@ -98,7 +98,7 @@ class LinkedList
     end
     node
   end
-
+# Add a node after the given position
   def add_after(position, value)
     new_node = Node.new(value)
     node = at_index(position)
@@ -114,9 +114,31 @@ class LinkedList
     end
     @size += 1
   end
+# Add a node at the given position
+  def add_at(position, value)
+    new_node = Node.new(value)
+    node = at_index(position)
+    if @head.nil?
+      @head = new_node
+      @tail = new_node
+    elsif node == @head
+      new_node.next_node = @head
+      @head = new_node
+    else
+      temp_node = @head
+      index = 0
+      while index != position - 1
+        temp_node = temp_node.next_node
+        index += 1
+      end
+      new_node.next_node = temp_node.next_node
+      temp_node.next_node = new_node
+    end
+    @size += 1
+  end
 end
 list = LinkedList.new
 list.append(3)
 list.append(5)
-list.add_after(0, 13)
-list.add_after(1, 11)
+list.add_at(1, 11)
+list.add_at(0, 13)
