@@ -79,6 +79,15 @@ class LinkedList
     end
   end
 
+  # Return a node value from the end of list
+  def return_last_node
+    if @head.nil?
+      p "List id empty!" 
+    else
+      @tail.value
+    end
+
+  end
   # Return a value from the index given
   def at_index(position)
     node = @head
@@ -108,8 +117,4 @@ end
 list = LinkedList.new
 list.append(1)
 list.append(2)
-list.append(3)
-list.remove_from_end
-p list.head
-p list.tail
-p list.size
+p list.return_last_node
