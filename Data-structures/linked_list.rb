@@ -43,12 +43,13 @@ class LinkedList
   # Return a node from the front
   def return_front_node
     if @head.nil?
-      p "List is empty!"
+      p 'List is empty!'
     else
       @head.value
     end
   end
 
+  # Add a node at the end of the list
   def append(number)
     new_node = Node.new(number)
     if @head.nil?
@@ -61,7 +62,25 @@ class LinkedList
     @size += 1
   end
 
-  def at(position)
+  # Remove a node from the last of list
+  def remove_from_end
+    if @head.nil?
+      p 'List is empty!'
+    elsif @head == @tail
+      @head = nil
+      @tail = nil
+      @size -= 1
+    else
+      node = @head
+      node = node.next_node until node.next_node.next_node.nil?
+      node.next_node = nil
+      @tail = node
+      @size -= 1
+    end
+  end
+
+  # Return a value from the index given
+  def at_index(position)
     node = @head
     node_index = 0
     until node_index == position || node.next_node.nil?
@@ -89,4 +108,8 @@ end
 list = LinkedList.new
 list.append(1)
 list.append(2)
+list.append(3)
+list.remove_from_end
+p list.head
+p list.tail
 p list.size
