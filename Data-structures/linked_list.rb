@@ -17,6 +17,29 @@ class LinkedList
     @size = 0
   end
 
+  # Add a node in the begining of list
+  def prepend(number)
+    node = Node.new(number)
+    if @head.nil?
+      @head = node
+      @tail = node
+    else
+      node.next_node = @head
+      @head = node
+      @size += 1
+    end
+  end
+
+  # Remove node from the begining of list
+  def remove_from_front
+    if @head.nil?
+      p 'List is empty!'
+    else
+      @head = @head.next_node
+      @size -= 1
+    end
+  end
+
   def append(number)
     new_node = Node.new(number)
     if @head.nil?
@@ -39,22 +62,21 @@ class LinkedList
     node.value
   end
 
-  def prepend(number)
-    node = Node.new(number)
-    if @head.nil?
-      @head = node
-      @tail = node
-    else
-      node.next_node = @head
-      @head = node
-      @size += 1
+  def add_at(position, value)
+    new_node = Node.new(value)
+    if position == 0
+      new_node.next_node = @head
+      @head = new_node
+      return @head
     end
+    node_index = 0
+    until node_index == position || node.next_node.nil?
+      node = node.next_node
+      node_index += 1
+    end
+    node.value = value
   end
 end
 list = LinkedList.new
-list.append(0)
-list.append(1)
-list.append(2)
-list.append(5)
-list.append(9)
+list.remove_from_front
 p list.size
