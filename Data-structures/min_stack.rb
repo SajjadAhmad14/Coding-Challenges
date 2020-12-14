@@ -1,3 +1,28 @@
+# frozen_string_literal: true
+
+# ****** Min stack ALGORITHM ******
+#  Given a series of numbers: 2, 3, 10, 1, 8, 4
+#  Need to use two stacks called main stack and min stack.
+#  One for containing all the elements: main
+#  Other for only minimum element of main stack: min
+#
+#  ****PUSH*****
+#  if main_stack is empty?
+#   push number in main_stack and in min_stack
+#  else
+#   push value in main_stack
+#   if head value of main_stack is less than that of min_stack
+#     push value in min_stack
+#   else
+#     push value of head of min_stack in min_stack
+#   end
+#  end
+#
+#  ****POP*****
+#  pop from main_stack
+#  pop from min_stack
+#
+
 class Node
   attr_accessor :value, :next_node
 
@@ -39,6 +64,37 @@ class Stack
   attr_reader :list
   def initialize
     @list = LinkedList.new
+    @min_stack = MinStack.new
+  end
+
+  def push(number)
+    if @list.head.nil?
+      @list.prepend(number)
+      @min_stack.push(number)
+    else
+      @list.prepend(number)
+      if @list.head.value < @min_stack.list.head.value
+        @min_stack.push(number)
+      else
+        @min_stack.push(@min_stack.list.head.value)
+      end
+    end
+  end
+
+  def pop
+    @list.remove_from_front
+    @min_stack.pop
+  end
+
+  def min
+    @min_stack.list.head.value
+  end
+end
+
+class MinStack
+  attr_reader :list 
+  def initialize
+    @list = LinkedList.new
   end
 
   def push(number)
@@ -46,55 +102,15 @@ class Stack
   end
 
   def pop
-    value = @list.head.value
     @list.remove_from_front
-    value
-  end
-
-end
-
-class MinStack
-  attr_reader :list, :stack, :min_value, :stack_size
-  def initialize
-    @list = LinkedList.new
-    @stack = Stack.new
-    @min_value = 0
-    @stack_size = 0
-  end
-
-  def min_push(number)
-    @stack.push(number)
-    if @list.size == 0
-      @list.prepend(number)
-      @min_value = @list.head.value
-      @stack_size += 1
-    end
-    if @stack.list.head.value <= @list.head.value
-      @list.prepend(number)
-      @min_value = @list.head.value
-      @stack_size += 1
-    end
-  end
-
-  def min_pop
-    if @list.head.value == @stack.list.head.value
-      @stack.pop
-      @list.remove_from_front
-      @min_value = @list.head.value
-      @stack_size -= 1
-    else
-      @stack.pop
-    end
-  end
-
-  def check
-    @stack.list.head.value
   end
 end
 
-
-min_stack = MinStack.new
-min_stack.min_push(3)
-min_stack.min_push(5)
-min_stack.min_push(2)
-min_stack.min_pop
+stack = Stack.new
+stack.push(8)
+stack.push(2)
+stack.push(0)
+stack.push(10)
+stack.pop
+stack.pop
+p stack.min
