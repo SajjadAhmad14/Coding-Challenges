@@ -1,11 +1,11 @@
 # Return all fibonacci numbers up to n 
 
 def fib(n)
-  fib = [0, 1]
-  (0...n - 2).each do |_i|
-    fib.push(fib[-1] + fib[-2]) if n > 1
+  if n < 3
+    return 1
+  else
+    return fib(n-1) + fib(n -2)
   end
-  fib
 end
 
-p fib(10)
+fib(4)
