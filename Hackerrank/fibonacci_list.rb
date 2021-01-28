@@ -8,4 +8,4 @@ def fib(n)
   end
 end
 
-fib(4)
+fib(6)
